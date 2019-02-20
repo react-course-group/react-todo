@@ -1,20 +1,24 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {Router, Route} from 'react-router-dom'
+import Home from './pages/Home'
+import About from './pages/About'
+import Navbar from './components/Navbar'
+import {createBrowserHistory} from 'history'
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-        </header>
-      </div>
-    );
+      <Router history={createBrowserHistory()}>
+        <div>
+          <Navbar />
+          <div className="container mx-auto">
+            <Route exact={true} path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+          </div>
+        </div>
+      </Router>
+    )
   }
 }
 
-export default App;
+export default App
