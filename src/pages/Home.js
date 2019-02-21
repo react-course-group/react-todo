@@ -5,14 +5,10 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      nextId: 4,
       text: '',
-      filter: 'done',
-      tasks: [
-        {id: 1, done: false, content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, est!'},
-        {id: 2, done: true, content: 'Fugiat pariatur ipsam voluptate molestiae'},
-        {id: 3, done: false, content: 'alias accusantium, deleniti delectus iusto quo fugit!'},
-      ]
+      filter: 'all',
+      tasks: [],
+      filteredTasks: []
     }
 
     this.update = this.update.bind(this)
@@ -20,6 +16,15 @@ class Home extends Component {
     this.remove = this.remove.bind(this)
     this.toggle = this.toggle.bind(this)
     this.selectFilter = this.selectFilter.bind(this)
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:3001/tasks')
+    .then(res => res.json())
+    .then(tasks => {
+      console.log('initial tasks', tasks)
+      this.setState({tasks, filteredTasks: tasks})
+    })
   }
 
   update(event) {
@@ -41,7 +46,9 @@ class Home extends Component {
   }
 
   remove(id) {
+    console.log('Removing', id)
     const tasks = this.state.tasks.filter(task => task.id != id)
+    console.log('Tasks after remove', tasks)
     this.setState({tasks})
   }
 
@@ -54,7 +61,11 @@ class Home extends Component {
   }
 
   selectFilter(filter) {
-    this.setState({filter})
+    let predicate = task => true
+    if (filter == 'done') predicate = task => task.done
+    if (filter == 'undone') predicate = task => !task.done
+    const filteredTasks = this.state.tasks.filter(predicate)
+    this.setState({filter, filteredTasks})
   }
 
   render() {
@@ -64,7 +75,7 @@ class Home extends Component {
         <Button active={this.state.filter == 'all'} onClick={() => this.selectFilter('all')}>All</Button>
         <Button active={this.state.filter == 'done'} onClick={() => this.selectFilter('done')}>Done</Button>
         <Button active={this.state.filter == 'undone'} onClick={() => this.selectFilter('undone')}>Undone</Button>
-        {this.state.tasks.map(task => <Task key={task.id} task={task} remove={this.remove} toggle={this.toggle} />)}
+        {this.state.filteredTasks.map(task => <Task key={task.id} task={task} remove={this.remove} toggle={this.toggle} />)}
       </div>
     );
   }
