@@ -1,0 +1,80 @@
+Javascript:
+  ✔ types and basic syntax @done
+  ✔ the prototype paradigm @done
+  ✔ oop and `this` keyword @done
+  ✔ callbacks and promise @done
+NodeJS:
+  ✔ node and npm @done
+  ✔ node modules @done
+  ✔ create a project and install dependencies @done
+New syntaxes:
+  ✔ `let` and `const` @done
+  ✔ string template: interpolation @done
+  ✔ arrow function @done
+  ✔ class @done
+  ✔ import / export @done
+  ✔ object and array destructuring @done
+  ✔ object and array spread @basics @done
+  ✔ `async` and `await` @basics @done
+  more at https://devhints.io/es6
+Browser APIs:
+  ✔ fetch @done
+  ✔ local and session storages @basics @done
+React:
+  ✔ navigation with `react-router` @done
+  ✔ class: handeling the state @done
+  ✔ class: passing and using props @done
+  ✔ class: constructor @done
+  ✔ class: componentDidMount @done
+  ✔ class: render @done
+  ✔ functional component @basics @done
+  ✔ create and use ref @basics @done
+  ✔ controlled vs uncontrolled inputs @basics @done
+  ✔ validating inputs and showing errors @basics @done 
+  ☐ class component
+    ☐ lifecycle methods
+      ☐ componentShouldUpdate
+      ☐ componentDidUpdate
+      ☐ componentWillUnmount
+  ☐ high order component
+  ☐ portals
+    ☐ meta tags with `react-helmet`
+  ☐ error boundries
+  ☐ defaultProps and propTypes with `prop-types`
+  ☐ forms and inputs
+    ☐ uploading files
+  ☐ context api
+  ☐ render props
+  ☐ using forwardRef
+  ☐ hooks
+  ☐ testing with `jest`
+    ☐ test cases and assertions
+    ☐ mounting a component
+    ☐ shallow rendering
+    ☐ testing events
+    ☐ mocking objects and functions
+    ☐ mocking the api
+    ☐ testing hooks
+
+Tools & Libraries:
+  Build:
+    webpack
+    babel
+  State Management:
+    redux
+    mobx
+    mobx-state-tree
+  Code format:
+    editorConfig
+    prettier
+  Static code checkers:
+    JSlint/ESLint
+    Typescript
+    Flow
+  Debug:
+    React developer tools
+    `debugger` keyword
+  CSS:
+    tailwindcss
+    styled-components
+    reactstrap
