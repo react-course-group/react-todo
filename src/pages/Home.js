@@ -2,151 +2,110 @@ import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import {Alert, Task} from '../components'
 import {ButtonLink} from '../Theme'
+import State from '../State'
 
-class Home extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      text: '',
-      tasks: [],
-      error: ''
-    }
-
-    this.tasksCollection = this.props.api.collection('/tasks')
-
-    this.update = this.update.bind(this)
-    this.add = this.add.bind(this)
-    this.remove = this.remove.bind(this)
-    this.toggle = this.toggle.bind(this)
-    this.selectFilter = this.selectFilter.bind(this)
-  }
-
-  async componentDidMount() {
-    if (this.props.user) {
+export const Home = ({match}) => {
+  const {api, user} = React.useContext(State)
+  const [error, setError] = React.useState('')
+  const [state, setState] = React.useState({text: '', tasks: []})
+  const tasksCollection = api.collection('/tasks')
+  const load = async () => {
+    if (user) {
       try {
-        const res = await this.tasksCollection.find({
-          author: this.props.user.id
+        const res = await tasksCollection.find({
+          author: user.id
         })
-        this.setState({tasks: res.items})
+        setState({...state, tasks: res.items})
       } catch (error) {
-        this.setState({error: JSON.stringify(error)})
+        setError(JSON.stringify(error))
       }
     }
   }
+  React.useEffect(() => {
+    load()
+  }, [])
 
-  shouldComponentUpdate() {
-    return true
-  }
+  let predicate = task => true
+  const {filter} = match.params
+  if (filter == 'done') predicate = task => task.done
+  if (filter == 'undone') predicate = task => !task.done
+  const filteredTasks = state.tasks.filter(predicate)
 
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
-
-  update(event) {
-    this.setState({text: event.target.value})
-  }
-
-  async add(event) {
-    if (event.key == 'Enter') {
+  const add = async ({key}) => {
+    if (key == 'Enter') {
       try {
-        const addedTask = await this.tasksCollection.add({
-          author: this.props.user.id,
-          content: this.state.text,
+        const addedTask = await tasksCollection.add({
+          author: user.id,
+          content: state.text,
           done: false
         })
-        this.setState({
+        setState({
           text: '',
-          tasks: this.state.tasks.concat([addedTask])
+          tasks: state.tasks.concat([addedTask])
         })
       } catch (error) {
-        this.setState({error: `Error while adding task!`})
+        setError(`Error while adding task!`)
       }
     }
   }
 
-  remove(id) {
-    this.tasksCollection
-      .destroy(id)
-      .then(() => {
-        const tasks = this.state.tasks.filter(task => task.id != id)
-        this.setState({tasks})
-      })
-      .catch(() => this.setState({error: `Error removing task ${id}`}))
+  const update = ({target: {value}}) => {
+    setState({...state, text: value})
   }
 
-  toggle(id) {
-    const task = this.state.tasks.filter(x => x.id == id)[0]
+  const remove = id => {
+    tasksCollection
+      .destroy(id)
+      .then(() => {
+        const tasks = state.tasks.filter(task => task.id != id)
+        setState({...state, tasks})
+      })
+      .catch(() => setError(`Error removing task ${id}`))
+  }
+
+  const toggle = id => {
+    const task = state.tasks.filter(x => x.id == id)[0]
     if (!task) {
-      return this.setState({error: `No task with id ${id}`})
+      return setError(`No task with id ${id}`)
     }
-    this.tasksCollection
+    tasksCollection
       .edit(id, {
         done: !task.done
       })
       .then(() => {
-        const tasks = this.state.tasks.map(task => {
+        const tasks = state.tasks.map(task => {
           if (task.id == id) task.done = !task.done
           return task
         })
-        this.setState({tasks})
+        setState({...state, tasks})
       })
-      .catch(() => this.setState({error: `Error while adding task!`}))
+      .catch(() => setError(`Error while adding task!`))
   }
 
-  selectFilter(filter) {
-    this.setState({filter})
-  }
-
-  filteredTasks() {
-    let predicate = task => true
-    const {filter} = this.props.match.params
-    if (filter == 'done') predicate = task => task.done
-    if (filter == 'undone') predicate = task => !task.done
-    return this.state.tasks.filter(predicate)
-  }
-
-  render() {
-    if (!this.props.user) {
-      return <Redirect to="/login" />
-    }
-
-    const {filter} = this.props.match.params
-    return (
-      <div>
-        {this.state.error && (
-          <Alert
-            text={this.state.error}
-            dismiss={() => this.setState({error: ''})}
-          />
-        )}
-        <input
-          className="block w-full my-5 p-3 border-b-2 border-b-grey focus:border-blue"
-          placeholder="What to do?"
-          type="text"
-          value={this.state.text}
-          onChange={this.update}
-          onKeyUp={this.add}
-        />
-        <ButtonLink active={filter == 'all'} to="/tasks/all">
-          All
-        </ButtonLink>
-        <ButtonLink active={filter == 'done'} to="/tasks/done">
-          Done
-        </ButtonLink>
-        <ButtonLink active={filter == 'undone'} to="/tasks/undone">
-          Undone
-        </ButtonLink>
-        {this.filteredTasks().map(task => (
-          <Task
-            key={task.id}
-            task={task}
-            remove={this.remove}
-            toggle={this.toggle}
-          />
-        ))}
-      </div>
-    )
-  }
+  if (!user) return <Redirect to="/login" />
+  return (
+    <div>
+      {error && <Alert text={error} dismiss={() => setError('')} />}
+      <input
+        className="block w-full my-5 p-3 border-b-2 border-b-grey focus:border-blue"
+        placeholder="What to do?"
+        type="text"
+        value={state.text}
+        onChange={update}
+        onKeyUp={add}
+      />
+      <ButtonLink active={filter == 'all'} to="/tasks/all">
+        All
+      </ButtonLink>
+      <ButtonLink active={filter == 'done'} to="/tasks/done">
+        Done
+      </ButtonLink>
+      <ButtonLink active={filter == 'undone'} to="/tasks/undone">
+        Undone
+      </ButtonLink>
+      {filteredTasks.map(task => (
+        <Task key={task.id} task={task} remove={remove} toggle={toggle} />
+      ))}
+    </div>
+  )
 }
-
-export {Home}

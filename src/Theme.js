@@ -30,18 +30,20 @@ export const Notice = dye(
 export const Button = dye(
   props =>
     cn('text-white p-2 m-2', {
-      'bg-blue': props.disabled,
-      'bg-grey-dark': !props.disabled
+      'bg-blue': props.active,
+      'bg-grey-dark': !props.active
     }),
-  'button'
+  'button',
+  'active'
 )
 
 export const ButtonLink = dye(
   props =>
     cn('text-white p-2 m-2 no-underline', {
-      'bg-blue': props.disabled,
-      'bg-grey-dark': !props.disabled
+      'bg-blue': props.active,
+      'bg-grey-dark': !props.active
     }),
-  Link
+  Link,
+  'active'
 )
 
