@@ -1,25 +1,22 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {Redirect} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Alert, Form} from '../components'
+import {Title} from '../Theme'
 
-class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async handleSubmit({email, password}) {
-    try {
-      const res = await this.props.api.post('/login', {
-        email,
-        password
-      })
-      window.localStorage.setItem('token', res.data.token)
-      window.location.reload()
-    } catch (err) {
-      console.error(err)
-    }
+    const res = await this.props.api.post('/login', {
+      email,
+      password
+    })
+    window.localStorage.setItem('token', res.data.token)
+    window.location.reload()
   }
 
   render() {
@@ -27,16 +24,14 @@ class Login extends Component {
       return <Redirect to="/" />
     }
     return (
-      <div>
+      <Fragment>
         <Helmet>
           <title>Todo - Login</title>
         </Helmet>
-        <h2>Login</h2>
-        <Alert />
+        <Title>Login</Title>
+        <Alert content="Testing error alert!" />
         <Form onSubmit={this.handleSubmit} submitLabel="Sign in" />
-      </div>
+      </Fragment>
     )
   }
 }
-
-export {Login}

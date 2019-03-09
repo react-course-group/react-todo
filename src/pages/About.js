@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {Helmet} from 'react-helmet'
 
 export const About = () => (
-  <div>
+  <Fragment>
     <Helmet>
       <title>Todo - About</title>
     </Helmet>
@@ -20,5 +20,5 @@ export const About = () => (
       quae, expedita voluptas quasi nulla error repellat deserunt animi
       eligendi. Vel quis dolore laudantium! Consectetur?
     </p>
-  </div>
+  </Fragment>
 )

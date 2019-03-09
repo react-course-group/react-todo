@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {Router, Route} from 'react-router-dom'
 import {Home, About, Register, Login} from './pages'
 import {Navbar} from './components'
+import {Container} from './Theme'
 
 class App extends React.Component {
   constructor(props) {
@@ -29,9 +30,9 @@ class App extends React.Component {
     const {api, history} = this.props
     return (
       <Router history={history}>
-        <div>
+        <Fragment>
           <Navbar user={this.state.user} />
-          <div className="container mx-auto">
+          <Container>
             <Route
               exact={true}
               path="/"
@@ -48,8 +49,8 @@ class App extends React.Component {
               path="/login"
               render={() => <Login user={this.state.user} api={api} />}
             />
-          </div>
-        </div>
+          </Container>
+        </Fragment>
       </Router>
     )
   }

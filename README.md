@@ -1,25 +1,32 @@
 # React Todo App
 
-- [ ] High order components (using `react-dye` as example)
+- [x] High order components (using `react-dye` as example)
 
-  - Refactoring the code and introducing UI components
+  - [ ] Refactoring the code and introducing UI components **in progress**
 
-- [ ] URL parameters
+- [x] Portals
 
-  - Add page to edit a task
-  - Add pagination
+  - [x] Add alerts
+  - [x] Change page title depending on the page (using `react-helmet`)
 
-- [ ] Portals
+- [x] Type checking (using `prop-types`)
 
-  - Add alerts
-  - Change page title depending on the page (using `react-helmet`)
+  - [ ] Add static code checking to avoid type errors **in progress**
 
 - [ ] Error Boundries
 
-  - Handle errors at top level
+  - [ ] Show error page when some exception is thrown
 
-- [ ] Type checking (using `prop-types`)
+- [ ] Context API
 
-  - Add static code checking to avoid type errors
+  - [ ] Share api client and authenticated user globally
 
-...
+- [ ] React Hooks
+
+  - [ ] Rewrite the whole app using Hooks (no more classes!)
+
+- [ ] Testing
+
+  - [ ] discovering `jest` and `react-testing-library`
+  - [ ] Write tests for components
+  - [ ] Write tests for custom hooks
