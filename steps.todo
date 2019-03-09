@@ -31,20 +31,20 @@ React:
   ✔ create and use ref @basics @done
   ✔ controlled vs uncontrolled inputs @basics @done
   ✔ validating inputs and showing errors @basics @done 
-  ☐ class component
-    ☐ lifecycle methods
-      ☐ componentShouldUpdate
-      ☐ componentDidUpdate
-      ☐ componentWillUnmount
-  ☐ high order component
-  ☐ portals
-    ☐ meta tags with `react-helmet`
+  ✔ high order component @done
+  ✔ portals @done (19-03-02 11:04)
+  ✔ meta tags with `react-helmet` @done
+  ✔ class component @done (19-03-02 11:37)
+    ✔ lifecycle methods @done (19-03-02 11:37)
+      ✔ componentShouldUpdate @done (19-03-02 11:37)
+      ✔ componentDidUpdate @done (19-03-02 11:37)
+      ✔ componentWillUnmount @done (19-03-02 11:37)
+  ✔ render props @done (19-03-02 11:41)
+  ✔ defaultProps and propTypes with `prop-types` @done (19-03-02 11:58)
   ☐ error boundries
-  ☐ defaultProps and propTypes with `prop-types`
   ☐ forms and inputs
     ☐ uploading files
   ☐ context api
-  ☐ render props
   ☐ using forwardRef
   ☐ hooks
   ☐ testing with `jest`

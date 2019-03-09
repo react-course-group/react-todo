@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-import {Form} from '../components'
+import {Helmet} from 'react-helmet'
+import {Alert, Form} from '../components'
 
 class Login extends Component {
   constructor(props) {
@@ -27,7 +28,11 @@ class Login extends Component {
     }
     return (
       <div>
+        <Helmet>
+          <title>Todo - Login</title>
+        </Helmet>
         <h2>Login</h2>
+        <Alert />
         <Form onSubmit={this.handleSubmit} submitLabel="Sign in" />
       </div>
     )

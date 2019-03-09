@@ -4,6 +4,7 @@ import {Button, Alert, Task} from '../components'
 
 class Home extends Component {
   constructor(props) {
+    console.log('constructor', arguments)
     super(props)
     this.state = {
       text: '',
@@ -22,6 +23,7 @@ class Home extends Component {
   }
 
   async componentDidMount() {
+    console.log('componentDidMount', arguments)
     if (this.props.user) {
       try {
         const res = await this.tasksCollection.find({
@@ -32,6 +34,19 @@ class Home extends Component {
         this.setState({error: JSON.stringify(error)})
       }
     }
+  }
+
+  shouldComponentUpdate() {
+    console.log('shouldComponentUpdate', arguments)
+    return true
+  }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate', arguments)
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount', arguments)
   }
 
   update(event) {
@@ -97,9 +112,11 @@ class Home extends Component {
   }
 
   render() {
+    console.log('render', arguments)
     if (!this.props.user) {
       return <Redirect to="/login" />
     }
+
     return (
       <div>
         {this.state.error && (

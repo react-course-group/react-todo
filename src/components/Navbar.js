@@ -1,16 +1,12 @@
 import React, {Fragment} from 'react'
 import {Link} from 'react-router-dom'
+import dye from 'react-dye'
 
 export function Navbar({user}) {
   return (
-    <div className="bg-black mb-4">
-      <div className="container mx-auto">
-        <Link
-          className="text-white inline-block p-4 no-underline hover:bg-blue"
-          to="/"
-        >
-          Tasks
-        </Link>
+    <NavbarConatiner>
+      <LinksContainer>
+        <NavLink to="/">Tasks</NavLink>
         <Link
           className="text-white inline-block p-4 no-underline hover:bg-blue"
           to="/about"
@@ -48,7 +44,14 @@ export function Navbar({user}) {
             <span className="text-white">{user.email}</span>
           </Fragment>
         )}
-      </div>
-    </div>
+      </LinksContainer>
+    </NavbarConatiner>
   )
 }
+
+const NavbarConatiner = dye('bg-black mb-4')
+const LinksContainer = dye('container mx-auto', 'div')
+const NavLink = dye(
+  'text-white inline-block p-4 no-underline hover:bg-blue',
+  Link
+)
