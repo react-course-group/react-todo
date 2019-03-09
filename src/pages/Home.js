@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
-import {Button, Alert, Task} from '../components'
+import {Alert, Task} from '../components'
+import {ButtonLink} from '../Theme'
 
 class Home extends Component {
   constructor(props) {
-    console.log('constructor', arguments)
     super(props)
     this.state = {
       text: '',
-      filter: 'all',
       tasks: [],
       error: ''
     }
@@ -23,7 +22,6 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    console.log('componentDidMount', arguments)
     if (this.props.user) {
       try {
         const res = await this.tasksCollection.find({
@@ -37,17 +35,12 @@ class Home extends Component {
   }
 
   shouldComponentUpdate() {
-    console.log('shouldComponentUpdate', arguments)
     return true
   }
 
-  componentDidUpdate() {
-    console.log('componentDidUpdate', arguments)
-  }
+  componentDidUpdate() {}
 
-  componentWillUnmount() {
-    console.log('componentWillUnmount', arguments)
-  }
+  componentWillUnmount() {}
 
   update(event) {
     this.setState({text: event.target.value})
@@ -106,17 +99,18 @@ class Home extends Component {
 
   filteredTasks() {
     let predicate = task => true
-    if (this.state.filter == 'done') predicate = task => task.done
-    if (this.state.filter == 'undone') predicate = task => !task.done
+    const {filter} = this.props.match.params
+    if (filter == 'done') predicate = task => task.done
+    if (filter == 'undone') predicate = task => !task.done
     return this.state.tasks.filter(predicate)
   }
 
   render() {
-    console.log('render', arguments)
     if (!this.props.user) {
       return <Redirect to="/login" />
     }
 
+    const {filter} = this.props.match.params
     return (
       <div>
         {this.state.error && (
@@ -133,24 +127,15 @@ class Home extends Component {
           onChange={this.update}
           onKeyUp={this.add}
         />
-        <Button
-          active={this.state.filter == 'all'}
-          onClick={() => this.selectFilter('all')}
-        >
+        <ButtonLink active={filter == 'all'} to="/tasks/all">
           All
-        </Button>
-        <Button
-          active={this.state.filter == 'done'}
-          onClick={() => this.selectFilter('done')}
-        >
+        </ButtonLink>
+        <ButtonLink active={filter == 'done'} to="/tasks/done">
           Done
-        </Button>
-        <Button
-          active={this.state.filter == 'undone'}
-          onClick={() => this.selectFilter('undone')}
-        >
+        </ButtonLink>
+        <ButtonLink active={filter == 'undone'} to="/tasks/undone">
           Undone
-        </Button>
+        </ButtonLink>
         {this.filteredTasks().map(task => (
           <Task
             key={task.id}

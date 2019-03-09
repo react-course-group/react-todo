@@ -2,14 +2,24 @@ import React, {Fragment} from 'react'
 import {Router, Route} from 'react-router-dom'
 import {Home, About, Register, Login} from './pages'
 import {Navbar} from './components'
-import {Container} from './Theme'
+import {Container, Notice} from './Theme'
+import State from './State'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      user: null
+      user: null,
+      hasError: false
     }
+  }
+
+  static getDerivedStateFromError(error) {
+    return {hasError: true}
+  }
+
+  componentDidCatch(error, info) {
+    console.log(error, info)
   }
 
   async componentDidMount() {
@@ -28,30 +38,32 @@ class App extends React.Component {
 
   render() {
     const {api, history} = this.props
+    const {user, hasError} = this.state
+    const context = {api, user}
+    if (hasError) return <Notice error>Some error happened</Notice>
     return (
-      <Router history={history}>
-        <Fragment>
-          <Navbar user={this.state.user} />
-          <Container>
-            <Route
-              exact={true}
-              path="/"
-              render={() => <Home user={this.state.user} api={api} />}
-            />
-            <Route exact path="/about" component={About} />
-            <Route
-              exact
-              path="/register"
-              render={() => <Register user={this.state.user} api={api} />}
-            />
-            <Route
-              exact
-              path="/login"
-              render={() => <Login user={this.state.user} api={api} />}
-            />
-          </Container>
-        </Fragment>
-      </Router>
+      <State.Provider value={context}>
+        <Router history={history}>
+          <Fragment>
+            <Navbar />
+            <Container>
+              <Route
+                path="/tasks/:filter"
+                render={props => (
+                  <Home {...props} user={this.state.user} api={api} />
+                )}
+              />
+              <Route exact path="/about" component={About} />
+              <Route
+                exact
+                path="/register"
+                render={() => <Register user={this.state.user} api={api} />}
+              />
+              <Route exact path="/login" component={Login} />
+            </Container>
+          </Fragment>
+        </Router>
+      </State.Provider>
     )
   }
 }

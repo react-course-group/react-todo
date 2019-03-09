@@ -1,5 +1,6 @@
 import cn from 'classnames'
 import dye from 'react-dye'
+import {Link} from 'react-router-dom'
 
 export const Container = dye('container mx-auto')
 
@@ -33,5 +34,14 @@ export const Button = dye(
       'bg-grey-dark': !props.disabled
     }),
   'button'
+)
+
+export const ButtonLink = dye(
+  props =>
+    cn('text-white p-2 m-2 no-underline', {
+      'bg-blue': props.disabled,
+      'bg-grey-dark': !props.disabled
+    }),
+  Link
 )
 

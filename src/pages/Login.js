@@ -3,15 +3,18 @@ import {Redirect} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Alert, Form} from '../components'
 import {Title} from '../Theme'
+import State from '../State'
 
 export class Login extends Component {
+  static contextType = State
+
   constructor(props) {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async handleSubmit({email, password}) {
-    const res = await this.props.api.post('/login', {
+    const res = await this.context.api.post('/login', {
       email,
       password
     })
@@ -20,8 +23,8 @@ export class Login extends Component {
   }
 
   render() {
-    if (this.props.user) {
-      return <Redirect to="/" />
+    if (this.context.user) {
+      return <Redirect to="/tasks/all" />
     }
     return (
       <Fragment>
