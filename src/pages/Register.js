@@ -1,16 +1,14 @@
-import React, {Component} from 'react'
+import React, {useContext} from 'react'
 import {Redirect} from 'react-router-dom'
 import {Form} from '../components'
+import State from '../State'
 
-class Register extends Component {
-  constructor(props) {
-    super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+export const Register = () => {
+  const {user, api} = useContext(State)
 
-  async handleSubmit({email, password}) {
+  const handleSubmit = async ({email, password}) => {
     try {
-      const res = await this.props.api.post('/users', {
+      const res = await api.post('/users', {
         email,
         password
       })
@@ -20,15 +18,11 @@ class Register extends Component {
     }
   }
 
-  render() {
-    if (this.props.user) return <Redirect to="/" />
-    return (
-      <div>
-        <h2>Register</h2>
-        <Form onSubmit={this.handleSubmit} submitLabel="Signup" />
-      </div>
-    )
-  }
+  if (user) return <Redirect to="/" />
+  return (
+    <div>
+      <h2>Register</h2>
+      <Form onSubmit={handleSubmit} submitLabel="Signup" />
+    </div>
+  )
 }
-
-export {Register}

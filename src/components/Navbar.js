@@ -1,8 +1,10 @@
 import React, {Fragment} from 'react'
 import {Link} from 'react-router-dom'
 import dye from 'react-dye'
+import State from '../State'
 
-export function Navbar({user}) {
+export function Navbar() {
+  const {user} = React.useContext(State)
   return (
     <NavbarConatiner>
       <LinksContainer>

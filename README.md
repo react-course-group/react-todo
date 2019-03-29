@@ -13,20 +13,20 @@
 
   - [ ] Add static code checking to avoid type errors **in progress**
 
-- [ ] Error Boundries
+- [x] Error Boundries
 
-  - [ ] Show error page when some exception is thrown
+  - [x] Show error page when some exception is thrown
 
-- [ ] Context API
+- [x] Context API
 
-  - [ ] Share api client and authenticated user globally
+  - [x] Share api client and authenticated user globally
 
-- [ ] React Hooks
+- [x] React Hooks
 
-  - [ ] Rewrite the whole app using Hooks (no more classes!)
+  - [x] Rewrite the whole app using Hooks (no more classes!) **in progress**
 
 - [ ] Testing
 
-  - [ ] discovering `jest` and `react-testing-library`
+  - [x] discovering `jest` and `react-testing-library`
   - [ ] Write tests for components
   - [ ] Write tests for custom hooks

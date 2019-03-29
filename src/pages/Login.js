@@ -1,20 +1,15 @@
-import React, {Component, Fragment} from 'react'
+import React, {Fragment} from 'react'
 import {Redirect} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Alert, Form} from '../components'
 import {Title} from '../Theme'
 import State from '../State'
 
-export class Login extends Component {
-  static contextType = State
+export function Login() {
+  const {user, api} = React.useContext(State)
 
-  constructor(props) {
-    super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  async handleSubmit({email, password}) {
-    const res = await this.context.api.post('/login', {
+  async function handleSubmit({email, password}) {
+    const res = await api.post('/login', {
       email,
       password
     })
@@ -22,19 +17,17 @@ export class Login extends Component {
     window.location.reload()
   }
 
-  render() {
-    if (this.context.user) {
-      return <Redirect to="/tasks/all" />
-    }
-    return (
-      <Fragment>
-        <Helmet>
-          <title>Todo - Login</title>
-        </Helmet>
-        <Title>Login</Title>
-        <Alert content="Testing error alert!" />
-        <Form onSubmit={this.handleSubmit} submitLabel="Sign in" />
-      </Fragment>
-    )
+  if (user) {
+    return <Redirect to="/tasks/all" />
   }
+  return (
+    <Fragment>
+      <Helmet>
+        <title>Todo - Login</title>
+      </Helmet>
+      <Title>Login</Title>
+      <Alert content="Testing error alert!" />
+      <Form onSubmit={handleSubmit} submitLabel="Sign in" />
+    </Fragment>
+  )
 }

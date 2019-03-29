@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
-import {Router, Route} from 'react-router-dom'
-import {Home, About, Register, Login, Counter} from './pages'
+import {Router, Route, Redirect} from 'react-router-dom'
+import {Home, About, Register, Login} from './pages'
 import {Navbar} from './components'
 import {Container, Notice} from './Theme'
 import State from './State'
@@ -47,6 +47,11 @@ class App extends React.Component {
           <Fragment>
             <Navbar />
             <Container>
+              <Route
+                exact
+                path="/"
+                render={() => <Redirect to="/tasks/all" />}
+              />
               <Route path="/tasks/:filter" component={Home} />
               <Route exact path="/about" component={About} />
               <Route
@@ -55,7 +60,6 @@ class App extends React.Component {
                 render={() => <Register user={this.state.user} api={api} />}
               />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/counter" component={Counter} />
             </Container>
           </Fragment>
         </Router>
