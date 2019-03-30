@@ -1,4 +1,5 @@
 import React from 'react'
+import {omit} from 'ramda'
 import cn from 'classnames'
 import {useInput} from '../hooks'
 
@@ -14,10 +15,11 @@ export const Form = ({onSubmit, submitLabel}) => {
         password: pass.value
       })
   }
+  const getProps = omit(['isValid'])
   return (
     <form onSubmit={submit}>
-      <input type="text" placeholder="Email" {...email} />
-      <input type="password" placeholder="Password" {...pass} />
+      <input type="text" placeholder="Email" {...getProps(email)} />
+      <input type="password" placeholder="Password" {...getProps(pass)} />
       <button
         type="submit"
         className={cn('inline-block m-2 p-2 text-white', {

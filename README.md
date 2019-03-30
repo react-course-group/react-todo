@@ -25,8 +25,8 @@
 
   - [x] Rewrite the whole app using Hooks (no more classes!) **in progress**
 
-- [ ] Testing
+- [x] Testing
 
   - [x] discovering `jest` and `react-testing-library`
-  - [ ] Write tests for components
-  - [ ] Write tests for custom hooks
+  - [x] Write tests for components
+  - [x] Write tests for custom hooks

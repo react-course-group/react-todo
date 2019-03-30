@@ -14,7 +14,6 @@ export function Login() {
       password
     })
     window.localStorage.setItem('token', res.data.token)
-    window.location.reload()
   }
 
   if (user) {
@@ -26,7 +25,6 @@ export function Login() {
         <title>Todo - Login</title>
       </Helmet>
       <Title>Login</Title>
-      <Alert content="Testing error alert!" />
       <Form onSubmit={handleSubmit} submitLabel="Sign in" />
     </Fragment>
   )
