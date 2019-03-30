@@ -30,7 +30,7 @@ React:
   ✔ functional component @basics @done
   ✔ create and use ref @basics @done
   ✔ controlled vs uncontrolled inputs @basics @done
-  ✔ validating inputs and showing errors @basics @done 
+  ✔ validating inputs and showing errors @basics @done
   ✔ high order component @done
   ✔ portals @done (19-03-02 11:04)
   ✔ meta tags with `react-helmet` @done
@@ -41,19 +41,14 @@ React:
       ✔ componentWillUnmount @done (19-03-02 11:37)
   ✔ render props @done (19-03-02 11:41)
   ✔ defaultProps and propTypes with `prop-types` @done (19-03-02 11:58)
-  ☐ error boundries
-  ☐ forms and inputs
-    ☐ uploading files
-  ☐ context api
-  ☐ using forwardRef
-  ☐ hooks
+  ✔ error boundries @done (19-03-30 01:29)
+  ✔ forms and inputs @done (19-03-30 01:29)
+  ✔ context api @done (19-03-30 01:29)
+  ✔ using forwardRef @done (19-03-30 01:29)
+  ✔ hooks @done (19-03-30 01:29)
   ☐ testing with `jest`
-    ☐ test cases and assertions
-    ☐ mounting a component
-    ☐ shallow rendering
-    ☐ testing events
-    ☐ mocking objects and functions
-    ☐ mocking the api
+    ✔ test cases and assertions @done (19-03-30 01:29)
+    ☐ testing a component
     ☐ testing hooks
 
 Tools & Libraries:
